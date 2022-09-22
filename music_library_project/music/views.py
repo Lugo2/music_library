@@ -3,16 +3,16 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import MusicLibrarySerializer
-from .models import MusicLibrary
+from .models import Music
 
 @api_view(['GET', 'POST'])
 def music_list(request):
     
     if request.method == 'GET':
         music_type = request.query_params.get('type')
-        queryset = MusicLibrary.objects.all()
+        queryset = Music.objects.all()
         if music_type:
-            queryset = queryset.filter(music_type__name = music_type)
+            queryset = queryset.filter(music_type__type = music_type)
 
         serializer = MusicLibrarySerializer(queryset, many = True)
         return Response(serializer.data)
@@ -27,7 +27,7 @@ def music_list(request):
 @api_view(['GET', 'PUT', 'DELETE'])
 def music_library(request, pk):
 
-    music_library = get_object_or_404(MusicLibrary, pk = pk)
+    music_library = get_object_or_404(Music, pk = pk)
 
     if request.method == 'GET':
         serializer = MusicLibrarySerializer(music_library)

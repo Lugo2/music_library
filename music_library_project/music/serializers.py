@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from .models import MusicLibrary
+from .models import Music
 
 class MusicLibrarySerializer(serializers.ModelSerializer):
     class Meta:
-        model = MusicLibrary
-        fields = ['id', 'tile','artist','album','release_date','genre']
+        model = Music
+        fields = ['id', 'title','artist','album','release_date','genre']
         depth = 1
